@@ -57,7 +57,7 @@ touch $RPM_BUILD_ROOT%{_var}/spool/%{name}/{fetchlist,groupinfo.lastupdate}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	DOCDIR=$RPM_BUILD_ROOT%{_datadir}/doc/%{name}
-	
+
 install %{name}.conf.example $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}.conf
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/nntpd
 
