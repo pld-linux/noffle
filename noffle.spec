@@ -6,6 +6,7 @@ Release:	2
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/noffle/%{name}-%{version}.tar.gz
+# Source0-md5:	fe6b49a43e7fd0341b055d558e1a8202
 Source1:	%{name}.inetd
 Patch0:		%{name}.DESTDIR.patch
 Patch1:		%{name}-overflows.patch
