@@ -6,4 +6,5 @@ FLAGS=nowait
 USER=news
 GROUP=news
 SERVER=tcpd
-DAEMON=/usr/sbin/noffle
+DAEMON=/usr/bin/noffle
+DAEMONARGS=" --server"
