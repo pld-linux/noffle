@@ -5,24 +5,10 @@ Version:	1.0.1
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
-Group(cs):	SÌªovÈ/DÈmoni
-Group(da):	NetvÊrks/DÊmoner
-Group(de):	Netzwerkwesen/Server
-Group(es):	Red/Servidores
-Group(fr):	RÈseau/Serveurs
-Group(is):	Net/P˙kar
-Group(it):	Rete/Demoni
-Group(no):	Nettverks/Daemoner
-Group(pl):	Sieciowe/Serwery
-Group(pt):	Rede/Servidores
-Group(ru):	Û≈‘ÿ/‰≈ÕœŒŸ
-Group(sl):	Omreæni/Streæniki
-Group(sv):	N‰tverk/Demoner
-Group(uk):	Ì≈“≈÷¡/‰≈ÕœŒ…
 Source0:	http://noffle.sourceforge.net/%{name}-%{version}.tar.gz
 Source1:	%{name}.inetd
 Patch0:		%{name}.DESTDIR.patch
-URL:		http://noffle.sourceforge.net
+URL:		http://noffle.sourceforge.net/
 Requires(post,postun):rc-inetd
 Requires:	inetdaemon
 Provides:	nntpserver
@@ -51,14 +37,9 @@ libtoolize --copy --force
 aclocal
 autoconf
 automake -a -c -f
-%{configure} 			\
---prefix=%{_prefix} \
-	--sysconfdir=%{_sysconfdir}
+%configure
 
 %{__make}
-
-
-#	DESTDIR=$RPM_BUILD_ROOT 
 
 %install
 rm -rf $RPM_BUILD_ROOT
