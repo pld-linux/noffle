@@ -1,0 +1,79 @@
+--- /home/users/hunter/backup/Makefile.am~	Sun May 21 09:16:06 2000
++++ docs/Makefile.am	Mon May 20 19:42:59 2002
+@@ -5,11 +5,11 @@
+ EXTRA_DIST = INTERNALS FAQ NOTES ${man_MANS} $(PACKAGE).lsm
+ 
+ install-data-local:
+-	$(INSTALL) -o 0 -g 0 -d $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/INTERNALS $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/FAQ $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/NOTES $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/$(PACKAGE).lsm $(DOCDIR)
++	$(INSTALL)  -d $(DOCDIR)
++	$(INSTALL_DATA)  $(srcdir)/INTERNALS $(DOCDIR)
++	$(INSTALL_DATA)  $(srcdir)/FAQ $(DOCDIR)
++	$(INSTALL_DATA)  $(srcdir)/NOTES $(DOCDIR)
++	$(INSTALL_DATA)  $(srcdir)/$(PACKAGE).lsm $(DOCDIR)
+ 
+ uninstall-local:
+ 	rm -f $(DOCDIR)/INTERNALS
+--- ./Makefile.am~	Mon May 20 19:58:42 2002
++++ ./Makefile.am	Mon May 20 19:58:45 2002
+@@ -4,26 +4,26 @@
+ 
+ EXTRA_DIST = $(PACKAGE).conf.example
+ 
+-install-data-local:
+-	$(INSTALL) -m 2755 -o news -g news -d $(SPOOLDIR)
+-	$(INSTALL) -o news -g news -d $(SPOOLDIR)/data
+-	$(INSTALL) -o news -g news -d $(SPOOLDIR)/lock
+-	$(INSTALL) -o news -g news -d $(SPOOLDIR)/requested
+-	$(INSTALL) -o news -g news -d $(SPOOLDIR)/outgoing
+-	$(INSTALL) -o news -g news -d $(SPOOLDIR)/overview
+-	chown -R news.news $(SPOOLDIR)
+-	$(INSTALL) -m 755 -o 0 -g 0 -d $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/AUTHORS $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/COPYING $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/ChangeLog $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/INSTALL $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/NEWS $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/README $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/TODO $(DOCDIR)
+-	$(INSTALL_DATA) -o 0 -g 0 $(srcdir)/noffle.conf.example \
+-                                  /etc/noffle.conf.example
+-	chown news.news /etc/noffle.conf.example
+-	chmod 600 /etc/noffle.conf.example
++
++	$(INSTALL) -d $(DESTDIR)$(SPOOLDIR)
++	$(INSTALL)  -d $(DESTDIR)$(SPOOLDIR)/data
++	$(INSTALL)  -d $(DESTDIR)$(SPOOLDIR)/lock
++	$(INSTALL)  -d $(DESTDIR)$(SPOOLDIR)/requested
++	$(INSTALL)  -d $(DESTDIR)$(SPOOLDIR)/outgoing
++	$(INSTALL)  -d $(DESTDIR)$(SPOOLDIR)/overview
++#	chown -R news.news $(SPOOLDIR)
++	$(INSTALL) -d $(DESTDIR)$(DOCDIR)
++	$(INSTALL_DATA) $(srcdir)/AUTHORS $(DESTDIR)$(DOCDIR)
++	$(INSTALL_DATA) $(srcdir)/COPYING $(DESTDIR)$(DOCDIR)
++	$(INSTALL_DATA) $(srcdir)/ChangeLog $(DESTDIR)$(DOCDIR)
++	$(INSTALL_DATA) $(srcdir)/INSTALL $(DESTDIR)$(DOCDIR)
++	$(INSTALL_DATA) $(srcdir)/NEWS $(DESTDIR)$(DOCDIR)
++	$(INSTALL_DATA) $(srcdir)/README $(DESTDIR)$(DOCDIR)
++	$(INSTALL_DATA) $(srcdir)/TODO $(DESTDIR)$(DOCDIR)
++	$(INSTALL_DATA) $(srcdir)/noffle.conf.example \
++                                 $(DESTDIR)/etc/noffle.conf.example
++#	chown news.news /etc/noffle.conf.example
++#	chmod 600 /etc/noffle.conf.example
+ 	@echo
+ 	@echo "****************************************************************"
+ 	@echo "You should now copy /etc/noffle.conf.example to /etc/noffle.conf"
+@@ -32,8 +32,8 @@
+ 	@echo
+ 
+ install-exec-local:
+-	chown news.news $(bindir)/$(PACKAGE)
+-	chmod 4755 $(bindir)/$(PACKAGE)
++#	chown news.news $(bindir)/$(PACKAGE)
++#	chmod 4755 $(bindir)/$(PACKAGE)
+ 
+ uninstall-local:
+ 	rm -f $(DOCDIR)/AUTHORS
