@@ -1,0 +1,71 @@
+--- noffle-1.0.1.orig/src/configfile.c
++++ noffle-1.0.1/src/configfile.c
+@@ -115,7 +115,8 @@
+ {
+     if ( config.servIdx >= config.numServ )
+         return FALSE;
+-    strcpy( name, config.serv[ config.servIdx ].name );
++    strncpy( name, config.serv[ config.servIdx ].name, MAXCHAR );
++    name[MAXCHAR-1] = '\0';
+     ++config.servIdx;
+     return TRUE;
+ }
+@@ -165,8 +166,10 @@
+ 
+     if ( searchServ( name, &idx ) )
+     {
+-        strcpy( user, config.serv[ idx ].user );
+-        strcpy( pass, config.serv[ idx ].pass );
++        strncpy( user, config.serv[ idx ].user, MAXCHAR );
++        user[MAXCHAR-1] = '\0';
++        strncpy( pass, config.serv[ idx ].pass, MAXCHAR );
++        pass[MAXCHAR-1] = '\0';
+     }
+     else
+     {
+--- noffle-1.0.1.orig/src/fetchlist.c
++++ noffle-1.0.1/src/fetchlist.c
+@@ -78,7 +78,8 @@
+         }
+         fetchlist.max += 50;
+     }
+-    strcpy( elem.name, name );
++    strncpy( elem.name, name, MAXCHAR );
++    (elem.name)[MAXCHAR-1] = '\0';
+     elem.mode = mode;
+     fetchlist.elem[ fetchlist.size++ ] = elem;
+ }
+@@ -194,7 +195,8 @@
+         appGrp( name, mode );
+         return TRUE;
+     }
+-    strcpy( elem->name, name );
++    strncpy( elem->name, name, MAXCHAR );
++    (elem->name)[MAXCHAR-1] = '\0';
+     elem->mode = mode;
+     return FALSE;
+ }
+--- noffle-1.0.1.orig/src/protocol.c
++++ noffle-1.0.1/src/protocol.c
+@@ -300,7 +300,8 @@
+     p = strstr( msgId, "@" );
+     if ( msgId[ 0 ] != '<' || msgId[ len - 1 ] != '>' || p == NULL )
+         return FALSE;
+-    strcpy( domain, p + 1 );
++    strncpy( domain, p + 1, MAXCHAR );
++    domain[MAXCHAR-1] = '\0';
+     domain[ strlen( domain ) - 1 ] = '\0';
+     headLen = p - msgId - 1;
+     Utl_cpyStrN( head, msgId + 1, headLen );
+--- noffle-1.0.1.orig/src/server.c
++++ noffle-1.0.1/src/server.c
+@@ -831,7 +831,8 @@
+     else
+     {
+         Utl_toLower( s );
+-        strcpy( arg, Utl_restOfLn( line, 1 ) );
++        strncpy( arg, Utl_restOfLn( line, 1 ), MAXCHAR );
++        arg[MAXCHAR-1] = '\0';
+         pat = Utl_stripWhiteSpace( arg );
+         if ( pat[ 0 ] == '\0' )
+             pat = "*";
