@@ -44,9 +44,7 @@ serwera.
 %prep
 %setup -q
 %patch0 -p0
-#%patch1 -p0
 
-	#CFLAGS="%{rpmcflags} -DHAVE_POSIX_REGCOMP" \
 %build
 rm -f missing
 libtoolize --copy --force
@@ -54,29 +52,33 @@ aclocal
 autoconf
 automake -a -c -f
 %{configure} 			\
-	--prefix=/usr 		\
+--prefix=%{_prefix} \
 	--sysconfdir=%{_sysconfdir}
 
 %{__make}
+
 
 #	DESTDIR=$RPM_BUILD_ROOT 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8} \
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man8} \
 	$RPM_BUILD_ROOT{%{_sysconfdir}/%{name},/etc/sysconfig/rc-inetd} \
-	$RPM_BUILD_ROOT%{_var}/spool/news
+	$RPM_BUILD_ROOT%{_var}/spool/%{name}/{data,global,lock,outgoing,overview,requested}
+touch $RPM_BUILD_ROOT%{_var}/spool/%{name}/{fetchlist,groupinfo.lastupdate}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	DOCDIR=$RPM_BUILD_ROOT/usr/share/doc/%{name}
-
+	DOCDIR=$RPM_BUILD_ROOT%{_datadir}/doc/%{name}
+	
+install %{name}.conf.example $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}.conf
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/nntpd
 
 touch $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/groupinfo
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/config.example
+#rm -f $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/config.example
 
-gzip -9nf README TODO NEWS INSTALL AUTHORS
+gzip -9nf README TODO NEWS INSTALL AUTHORS docs/FAQ docs/INTERNALS docs/NOTES
+mv docs/*.gz ./
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -95,11 +97,18 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc *.gz 
 %config %dir %attr(770,root,news) %{_sysconfdir}/noffle
 %ghost %attr(664,news,news) %{_sysconfdir}/noffle/*
-#%attr(750,root,news) %{_sbindir}/*
-%attr(2770,news,news) %{_var}/spool/news/
+%attr(640,root,news) %config %verify(not size mtime md5) %{_sysconfdir}/%{name}.conf
+%attr(750,root,news) %{_bindir}/noffle
+%attr(2770,news,news) %dir %{_var}/spool/%{name}/data
+%attr(2770,news,news) %dir  %{_var}/spool/%{name}/global
+%attr(2770,news,news) %dir  %{_var}/spool/%{name}/lock
+%attr(2770,news,news)  %dir  %{_var}/spool/%{name}/outgoing
+%attr(2770,news,news) %dir  %{_var}/spool/%{name}/overview
+%attr(2770,news,news) %dir %{_var}/spool/%{name}/requested
+%attr(2770,news,news) %dir  %{_var}/spool/%{name}
 %attr(640,root,root) /etc/sysconfig/rc-inetd/nntpd
 %{_mandir}/man1/*
 %{_mandir}/man5/*
