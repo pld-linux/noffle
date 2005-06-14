@@ -13,6 +13,7 @@ Patch1:		%{name}-overflows.patch
 URL:		http://noffle.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	gdbm-devel
 BuildRequires:	libtool
 Requires(post,postun):	rc-inetd
 Requires:	inetdaemon
@@ -84,7 +85,7 @@ fi
 %doc README TODO NEWS INSTALL AUTHORS docs/FAQ docs/INTERNALS docs/NOTES
 %attr(770,root,news) %dir %{_sysconfdir}/noffle
 %attr(664,news,news) %ghost %{_sysconfdir}/noffle/*
-%attr(640,root,news) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/%{name}.conf
+%attr(640,root,news) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}.conf
 %attr(750,root,news) %{_bindir}/noffle
 %attr(2770,news,news) %dir %{_var}/spool/%{name}/data
 %attr(2770,news,news) %dir %{_var}/spool/%{name}/global
