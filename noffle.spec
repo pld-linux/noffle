@@ -1,5 +1,5 @@
 Summary:	NNTP server for small sites
-Summary(pl):	Serwer NNTP przeznaczony dla niedu¿ych serwerów
+Summary(pl.UTF-8):   Serwer NNTP przeznaczony dla nieduÅ¼ych serwerÃ³w
 Name:		noffle
 Version:	1.0.1
 Release:	3
@@ -27,11 +27,11 @@ dial-up connections to the Internet. It acts as a server to news
 clients running on the local host, but gets its news feed by acting as
 a client to a remote server.
 
-%description -l pl
-Noffle to serwer grup dyskusyjnych usenet zoptymalizowany pod k±tem
-kilku u¿ytkowników i wolnego ³±cza komutowanego do internetu.
-Zachowuje siê on jako serwer dla klientów uruchamianych na maszynie
-lokalnej, a wiadomo¶ci ¶ci±ga ³±cz±c siê jako klient do zdalnego
+%description -l pl.UTF-8
+Noffle to serwer grup dyskusyjnych usenet zoptymalizowany pod kÄ…tem
+kilku uÅ¼ytkownikÃ³w i wolnego Å‚Ä…cza komutowanego do internetu.
+Zachowuje siÄ™ on jako serwer dla klientÃ³w uruchamianych na maszynie
+lokalnej, a wiadomoÅ›ci Å›ciÄ…ga Å‚Ä…czÄ…c siÄ™ jako klient do zdalnego
 serwera.
 
 %prep
